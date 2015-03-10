@@ -62,8 +62,10 @@
     __weak FirebaseBusinessService *weakSelf = self;
     
     self.buttonStateObservingHandle = [self.firebaseButtonStateObservingReference observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        NSArray *buttonValues = (NSArray *)snapshot.value;
-        [weakSelf.delegate firebaseBusinessService:weakSelf buttonStateValues:buttonValues];
+        if ([weakSelf.delegate respondsToSelector:@selector(firebaseBusinessService:buttonStateValues:)]) {
+            NSArray *buttonValues = (NSArray *)snapshot.value;
+            [weakSelf.delegate firebaseBusinessService:weakSelf buttonStateValues:buttonValues];
+        }
     } withCancelBlock:^(NSError *error) {
         NSLog(@"%@", error.description);
     }];

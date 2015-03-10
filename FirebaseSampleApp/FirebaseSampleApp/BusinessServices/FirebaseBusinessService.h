@@ -30,10 +30,8 @@
 
 @protocol FirebaseBusinessServiceDelegate <NSObject>
 
-@required
-- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService buttonStateValues:(NSArray *)buttonStateValues;
-
 @optional
 - (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService connectionDidChange:(BOOL)connectionActive;
+- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService buttonStateValues:(NSArray *)buttonStateValues;
 
 @end
