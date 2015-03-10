@@ -13,6 +13,7 @@
 
 static NSUInteger const kNumberOfButtons = 12;
 static CGFloat const kHeaderViewHeight = 50.0;
+static CGSize const kCellSize = {100.0, 50.0};
 
 static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"SimpleButtonCollectionViewCellReuseIdentifier";
 
@@ -146,7 +147,7 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
 #pragma mark - <UICollectionViewDelegateFlowLayout>
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(100, 50);
+    return kCellSize;
 }
 
 #pragma mark - FirebaseBusinessServiceDelegate
