@@ -11,20 +11,22 @@
 
 @interface FirebaseBusinessService ()
 @property (strong, nonatomic) NSString *firebaseUrl;
-@property (strong, nonatomic) Firebase *firebase;
+@property (strong, nonatomic) Firebase *firebaseButtonStateObservingReference;
 @property (strong, nonatomic) Firebase *firebaseConnectionReference;
 @property (assign, nonatomic) FirebaseHandle connectionHandle;
+@property (assign, nonatomic) FirebaseHandle buttonStateObservingHandle;
 @end
 
 @implementation FirebaseBusinessService
 
 #pragma mark - Properties
 
-- (Firebase *)firebase {
-    if (!_firebase) {
-        _firebase = [[Firebase alloc] initWithUrl:self.firebaseUrl];
+- (Firebase *)firebaseButtonStateObservingReference {
+    if (!_firebaseButtonStateObservingReference) {
+        NSString *url = [self.firebaseUrl stringByAppendingString:@"/ios/saving-data/buttonstates"];
+        _firebaseButtonStateObservingReference = [[Firebase alloc] initWithUrl:url];
     }
-    return _firebase;
+    return _firebaseButtonStateObservingReference;
 }
 
 #pragma mark - Init
@@ -36,6 +38,8 @@
     return self;
 }
 
+#pragma mark - Firebase methods
+
 - (void)startMonitoringConnection {
     NSString *connectionUrl = [self.firebaseUrl stringByAppendingString:@"/.info/connected"];
     self.firebaseConnectionReference = [[Firebase alloc] initWithUrl:connectionUrl];
@@ -43,13 +47,33 @@
     __weak FirebaseBusinessService *weakSelf = self;
     
     self.connectionHandle = [self.firebaseConnectionReference observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        BOOL connected = [snapshot.value boolValue];
-        [weakSelf.delegate firebaseBusinessService:weakSelf connectionDidChange:connected];
+        weakSelf.connected = [snapshot.value boolValue];
+        [weakSelf.delegate firebaseBusinessService:weakSelf connectionDidChange:weakSelf.connected];
     }];
 }
 
 - (void)stopMonitoringConnection {
     [self.firebaseConnectionReference removeObserverWithHandle:self.connectionHandle];
+}
+
+- (void)startObservingButtonStates {
+    __weak FirebaseBusinessService *weakSelf = self;
+    
+    // Attach a block to read the data at our posts reference
+    self.buttonStateObservingHandle = [self.firebaseButtonStateObservingReference observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        NSArray *buttonValues = (NSArray *)snapshot.value;
+        [weakSelf.delegate firebaseBusinessService:weakSelf buttonStateValues:buttonValues];
+    } withCancelBlock:^(NSError *error) {
+        NSLog(@"%@", error.description);
+    }];
+}
+
+- (void)stopObservingButtonStates {
+    [self.firebaseButtonStateObservingReference removeObserverWithHandle:self.buttonStateObservingHandle];
+}
+
+- (void)postButtonStateValues:(NSArray *)buttonStateValues {
+    [self.firebaseButtonStateObservingReference setValue:buttonStateValues];
 }
 
 @end

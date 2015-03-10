@@ -9,8 +9,13 @@
 #import "MainViewControllerHeaderView.h"
 #import "UIView+AutoLayout.h"
 
-static CGSize const kHeaderButtonSize = {100.0, 33.0};
-static CGSize const kConnectionImageSize = {25.0, 25.0};
+static CGSize const kHeaderButtonSizeiPhone = {100.0, 33.0};
+static CGSize const kHeaderButtonSizeiPad = {200.0, 66.0};
+static CGSize const kConnectionImageSizeiPhone = {25.0, 25.0};
+static CGSize const kConnectionImageSizeiPad = {75.0, 75.0};
+
+#define HEADER_BUTTON_SIZE (IS_IPHONE ? kHeaderButtonSizeiPhone : kHeaderButtonSizeiPad)
+#define CONNECTION_IMAGE_SIZE (IS_IPHONE ? kConnectionImageSizeiPhone : kConnectionImageSizeiPad)
 
 @interface MainViewControllerHeaderView ()
 @property (strong, nonatomic) UIButton *headerButton;
@@ -101,13 +106,18 @@ static CGSize const kConnectionImageSize = {25.0, 25.0};
     
     NSDictionary *metrics = @{@"padding": @(10)};
     
-    [self.headerButton constrainToSize:kHeaderButtonSize];
-    [self.connectionIndicatorImage constrainToSize:kConnectionImageSize];
+    [self.headerButton constrainToSize:HEADER_BUTTON_SIZE];
+    [self.connectionIndicatorImage constrainToSize:CONNECTION_IMAGE_SIZE];
     
     [self.headerButton centerInView:self];
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[image]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-padding-[image]" options:0 metrics:metrics views:viewsDictionary]];
+    
+    if (IS_IPHONE) {
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-padding-[image]" options:0 metrics:metrics views:viewsDictionary]];
+    } else {
+        [self.connectionIndicatorImage centerInContainerOnAxis:NSLayoutAttributeCenterY];
+    }
 }
 
 - (void)drawRect:(CGRect)rect {

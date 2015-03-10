@@ -42,6 +42,8 @@
 		7511FEAD1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleButtonCollectionViewCell.m; sourceTree = "<group>"; };
 		7511FEB01AAE74F0001987B8 /* FirebaseBusinessService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseBusinessService.h; sourceTree = "<group>"; };
 		7511FEB11AAE74F0001987B8 /* FirebaseBusinessService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseBusinessService.m; sourceTree = "<group>"; };
+		7517BA6F1AAE8C7500C70293 /* FirebaseSampleApp.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseSampleApp.pch; sourceTree = "<group>"; };
+		7517BA711AAE8DAB00C70293 /* FirebaseSampleAppMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseSampleAppMacros.h; sourceTree = "<group>"; };
 		759EA1101AAE5AAA000F50BA /* FirebaseSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		759EA1131AAE5AAA000F50BA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		759EA1151AAE5AAA000F50BA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -111,6 +113,14 @@
 			path = BusinessServices;
 			sourceTree = "<group>";
 		};
+		7517BA701AAE8D9400C70293 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				7517BA711AAE8DAB00C70293 /* FirebaseSampleAppMacros.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
 		759EA1071AAE5AAA000F50BA = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +158,7 @@
 				759EA11F1AAE5AAA000F50BA /* AppDelegate.m */,
 				7511FEAF1AAE74D6001987B8 /* BusinessServices */,
 				7511FEA41AAE6638001987B8 /* Categories */,
+				7517BA701AAE8D9400C70293 /* Headers */,
 				759EA1291AAE5AAA000F50BA /* Images.xcassets */,
 				759EA12B1AAE5AAA000F50BA /* LaunchScreen.xib */,
 				759EA11A1AAE5AAA000F50BA /* Supporting Files */,
@@ -160,6 +171,7 @@
 		759EA11A1AAE5AAA000F50BA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7517BA6F1AAE8C7500C70293 /* FirebaseSampleApp.pch */,
 				759EA11B1AAE5AAA000F50BA /* Info.plist */,
 				759EA11C1AAE5AAA000F50BA /* main.m */,
 			);
@@ -241,6 +253,7 @@
 				TargetAttributes = {
 					759EA10F1AAE5AAA000F50BA = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = LS2EX7B462;
 					};
 					759EA1311AAE5AAA000F50BA = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -354,6 +367,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FirebaseSampleApp/FirebaseSampleApp.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -395,6 +410,8 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = FirebaseSampleApp/FirebaseSampleApp.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -413,6 +430,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Shared/Firebase/Frameworks,
@@ -425,6 +444,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -432,6 +452,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Shared/Firebase/Frameworks,
@@ -444,6 +466,7 @@
 					"-lc++",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -12,8 +12,11 @@
 #import "FirebaseBusinessService.h"
 
 static NSUInteger const kNumberOfButtons = 12;
-static CGFloat const kHeaderViewHeight = 50.0;
+//static CGFloat const kHeaderViewHeight = 50.0;
 static CGSize const kCellSize = {100.0, 50.0};
+
+#define TOP_PADDING (IS_IPHONE ? 20.0 : 40.0)
+#define HEADER_VIEW_HEIGHT (IS_IPHONE ? 50.0 : 100.0)
 
 static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"SimpleButtonCollectionViewCellReuseIdentifier";
 
@@ -91,9 +94,9 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     
     NSDictionary *viewsDictionary = @{@"headerView": self.headerView,
                                       @"collectionView": self.collectionView};
-    NSDictionary *metrics = @{@"topPadding": @(20),
+    NSDictionary *metrics = @{@"topPadding": @(TOP_PADDING),
                               @"padding": @(10),
-                              @"headerViewHeight": @(kHeaderViewHeight)};
+                              @"headerViewHeight": @(HEADER_VIEW_HEIGHT)};
     
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[headerView]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[collectionView]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
@@ -106,6 +109,7 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     [self.collectionView registerClass:[SimpleButtonCollectionViewCell class] forCellWithReuseIdentifier:kSimpleButtonCollectionViewCellReuseIdentifier];
     
     [self.firebaseBusinessService startMonitoringConnection];
+    [self.firebaseBusinessService startObservingButtonStates];
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -136,12 +140,16 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     
-    BOOL active = [[self.activeButtons objectAtIndex:indexPath.row] boolValue];
-    active = !active;
-    
-    [self.activeButtons setObject:[NSNumber numberWithBool:active] atIndexedSubscript:indexPath.row];
-    
-    [collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    if (self.firebaseBusinessService.isConnected) {
+        BOOL active = [[self.activeButtons objectAtIndex:indexPath.row] boolValue];
+        active = !active;
+        
+        [self.activeButtons setObject:[NSNumber numberWithBool:active] atIndexedSubscript:indexPath.row];
+        
+        [self.firebaseBusinessService postButtonStateValues:self.activeButtons];
+        
+        [collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }
 }
 
 #pragma mark - <UICollectionViewDelegateFlowLayout>
@@ -150,7 +158,20 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     return kCellSize;
 }
 
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    if (IS_IPHONE) {
+        return UIEdgeInsetsMake(0.0, 20.0, 0.0, 20.0);
+    } else {
+        return UIEdgeInsetsMake(0.0, 100.0, 0.0, 100.0);
+    }
+}
+
 #pragma mark - FirebaseBusinessServiceDelegate
+
+- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService buttonStateValues:(NSArray *)buttonStateValues {
+    self.activeButtons = [NSMutableArray arrayWithArray:buttonStateValues];
+    [self.collectionView reloadData];
+}
 
 - (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService connectionDidChange:(BOOL)connectionActive {
     self.headerView.connectionActive = connectionActive;

@@ -12,6 +12,7 @@
 
 @interface FirebaseBusinessService : NSObject
 
+@property (assign, nonatomic, getter=isConnected) BOOL connected;
 @property (weak, nonatomic) id<FirebaseBusinessServiceDelegate> delegate;
 
 - (id)init __attribute__((unavailable("Must use initWithFirebaseUrl:")));
@@ -20,10 +21,19 @@
 - (void)startMonitoringConnection;
 - (void)stopMonitoringConnection;
 
+- (void)startObservingButtonStates;
+- (void)stopObservingButtonStates;
+
+- (void)postButtonStateValues:(NSArray *)buttonStateValues;
+
 @end
 
 @protocol FirebaseBusinessServiceDelegate <NSObject>
 
+@required
+- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService buttonStateValues:(NSArray *)buttonStateValues;
+
+@optional
 - (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService connectionDidChange:(BOOL)connectionActive;
 
 @end
