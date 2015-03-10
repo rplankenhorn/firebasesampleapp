@@ -10,27 +10,30 @@
 #import "MainViewControllerHeaderView.h"
 #import "SimpleButtonCollectionViewCell.h"
 #import "FirebaseBusinessService.h"
+#import "DrawingViewController.h"
 
 static NSUInteger const kNumberOfButtons = 12;
-//static CGFloat const kHeaderViewHeight = 50.0;
 static CGSize const kCellSize = {100.0, 50.0};
-
-#define TOP_PADDING (IS_IPHONE ? 20.0 : 40.0)
-#define HEADER_VIEW_HEIGHT (IS_IPHONE ? 50.0 : 100.0)
 
 static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"SimpleButtonCollectionViewCellReuseIdentifier";
 
-@interface MainViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, FirebaseBusinessServiceDelegate>
+@interface MainViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DrawingViewControllerDelegate>
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UICollectionViewLayout *layout;
-@property (strong, nonatomic) MainViewControllerHeaderView *headerView;
-
 @property (strong, nonatomic) NSMutableArray *activeButtons;
-@property (strong, nonatomic) FirebaseBusinessService *firebaseBusinessService;
-
 @end
 
 @implementation MainViewController
+
+#pragma mark - Property Overrides
+
+- (NSString *)headerButtonText {
+    return @"draw";
+}
+
+- (UIView *)detailView {
+    return self.collectionView;
+}
 
 #pragma mark - Properties
 
@@ -51,16 +54,6 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     return _layout;
 }
 
-- (MainViewControllerHeaderView *)headerView {
-    if (!_headerView) {
-        _headerView = [[MainViewControllerHeaderView alloc] init];
-        _headerView.headerText = @"draw";
-        _headerView.connectionActive = YES;
-        _headerView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _headerView;
-}
-
 - (NSArray *)activeButtons {
     if (!_activeButtons) {
         _activeButtons = [[NSMutableArray alloc] init];
@@ -72,44 +65,22 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     return _activeButtons;
 }
 
-- (FirebaseBusinessService *)firebaseBusinessService {
-    if (!_firebaseBusinessService) {
-        _firebaseBusinessService = [[FirebaseBusinessService alloc] initWithFirebaseUrl:@"https://plank-firebase-sample.firebaseio.com"];
-        _firebaseBusinessService.delegate = self;
-    }
-    return _firebaseBusinessService;
-}
-
 #pragma mark - Lifecycle
-
-- (void)loadView {
-    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    
-    [self.view addSubview:self.headerView];
-    [self.view addSubview:self.collectionView];
-    
-    self.view.backgroundColor = [UIColor colorWithRed:240.0/0xff green:240.0/0xff blue:240.0/0xff alpha:1.0];
-    self.headerView.backgroundColor = self.view.backgroundColor;
-    self.collectionView.backgroundColor = self.headerView.backgroundColor;
-    
-    NSDictionary *viewsDictionary = @{@"headerView": self.headerView,
-                                      @"collectionView": self.collectionView};
-    NSDictionary *metrics = @{@"topPadding": @(TOP_PADDING),
-                              @"padding": @(10),
-                              @"headerViewHeight": @(HEADER_VIEW_HEIGHT)};
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[headerView]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[collectionView]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-topPadding-[headerView(==headerViewHeight)]-padding-[collectionView]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.collectionView registerClass:[SimpleButtonCollectionViewCell class] forCellWithReuseIdentifier:kSimpleButtonCollectionViewCellReuseIdentifier];
-    
-    [self.firebaseBusinessService startMonitoringConnection];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.firebaseBusinessService startObservingButtonStates];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self.firebaseBusinessService stopObservingButtonStates];
+    [super viewDidDisappear:animated];
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -117,7 +88,6 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.activeButtons.count;
@@ -173,8 +143,19 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     [self.collectionView reloadData];
 }
 
-- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService connectionDidChange:(BOOL)connectionActive {
-    self.headerView.connectionActive = connectionActive;
+#pragma mark - MainViewControllerHeaderViewDelegate
+
+- (void)headerButtonPressedWithMainViewControllerHeaderView:(MainViewControllerHeaderView *)headerView {
+    DrawingViewController *drawingViewController = [[DrawingViewController alloc] init];
+    drawingViewController.delegate = self;
+    drawingViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:drawingViewController animated:YES completion:nil];
+}
+
+#pragma mark - DrawingViewControllerDelegate
+
+- (void)shouldDismissDrawingViewController:(DrawingViewController *)drawingViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

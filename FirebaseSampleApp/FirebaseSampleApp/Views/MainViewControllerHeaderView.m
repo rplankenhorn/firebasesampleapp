@@ -33,6 +33,7 @@ static CGSize const kConnectionImageSizeiPad = {75.0, 75.0};
         _headerButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         _headerButton.titleLabel.textColor = [UIColor whiteColor];
         _headerButton.backgroundColor = [UIColor colorWithRed:91.0/0xff green:149.0/0xff blue:214.0/0xff alpha:1.0];
+        [_headerButton addTarget:self action:@selector(headerButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         _headerButton.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _headerButton;
@@ -128,6 +129,12 @@ static CGSize const kConnectionImageSizeiPad = {75.0, 75.0};
     maskLayer.frame = self.headerButton.bounds;
     maskLayer.path = maskPath.CGPath;
     self.headerButton.layer.mask = maskLayer;
+}
+
+#pragma mark - Actions
+
+- (void)headerButtonTapped:(id)sender {
+    [self.delegate headerButtonPressedWithMainViewControllerHeaderView:self];
 }
 
 @end

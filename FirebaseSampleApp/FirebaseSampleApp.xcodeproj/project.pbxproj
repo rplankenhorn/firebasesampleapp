@@ -11,12 +11,16 @@
 		7511FEA71AAE6652001987B8 /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FEA61AAE6652001987B8 /* UIView+AutoLayout.m */; };
 		7511FEAE1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FEAD1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m */; };
 		7511FEB21AAE74F0001987B8 /* FirebaseBusinessService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FEB11AAE74F0001987B8 /* FirebaseBusinessService.m */; };
+		7517BA731AAE927800C70293 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7517BA721AAE927800C70293 /* Firebase.framework */; };
+		7517BA781AAE93AF00C70293 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7517BA771AAE93AF00C70293 /* BaseViewController.m */; };
+		7517BA7B1AAE96BE00C70293 /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7517BA7A1AAE96BE00C70293 /* DrawingViewController.m */; };
+		7517BA811AAE973600C70293 /* FDDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7517BA801AAE973600C70293 /* FDDrawView.m */; };
+		7517BA841AAE976A00C70293 /* FDPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7517BA831AAE976A00C70293 /* FDPath.m */; };
 		759EA1141AAE5AAA000F50BA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1131AAE5AAA000F50BA /* CFNetwork.framework */; };
 		759EA1161AAE5AAA000F50BA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1151AAE5AAA000F50BA /* Security.framework */; };
 		759EA1181AAE5AAA000F50BA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1171AAE5AAA000F50BA /* SystemConfiguration.framework */; };
 		759EA11D1AAE5AAA000F50BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 759EA11C1AAE5AAA000F50BA /* main.m */; };
 		759EA1201AAE5AAA000F50BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 759EA11F1AAE5AAA000F50BA /* AppDelegate.m */; };
-		759EA1281AAE5AAA000F50BA /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1271AAE5AAA000F50BA /* Firebase.framework */; };
 		759EA12A1AAE5AAA000F50BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 759EA1291AAE5AAA000F50BA /* Images.xcassets */; };
 		759EA12D1AAE5AAA000F50BA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 759EA12B1AAE5AAA000F50BA /* LaunchScreen.xib */; };
 		759EA1391AAE5AAA000F50BA /* FirebaseSampleAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 759EA1381AAE5AAA000F50BA /* FirebaseSampleAppTests.m */; };
@@ -44,6 +48,15 @@
 		7511FEB11AAE74F0001987B8 /* FirebaseBusinessService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseBusinessService.m; sourceTree = "<group>"; };
 		7517BA6F1AAE8C7500C70293 /* FirebaseSampleApp.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseSampleApp.pch; sourceTree = "<group>"; };
 		7517BA711AAE8DAB00C70293 /* FirebaseSampleAppMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseSampleAppMacros.h; sourceTree = "<group>"; };
+		7517BA721AAE927800C70293 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = FirebaseSampleApp/Frameworks/Firebase.framework; sourceTree = "<group>"; };
+		7517BA761AAE93AF00C70293 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		7517BA771AAE93AF00C70293 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		7517BA791AAE96BE00C70293 /* DrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingViewController.h; sourceTree = "<group>"; };
+		7517BA7A1AAE96BE00C70293 /* DrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingViewController.m; sourceTree = "<group>"; };
+		7517BA7F1AAE973600C70293 /* FDDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDDrawView.h; sourceTree = "<group>"; };
+		7517BA801AAE973600C70293 /* FDDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDDrawView.m; sourceTree = "<group>"; };
+		7517BA821AAE976A00C70293 /* FDPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDPath.h; sourceTree = "<group>"; };
+		7517BA831AAE976A00C70293 /* FDPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDPath.m; sourceTree = "<group>"; };
 		759EA1101AAE5AAA000F50BA /* FirebaseSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		759EA1131AAE5AAA000F50BA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		759EA1151AAE5AAA000F50BA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -52,7 +65,6 @@
 		759EA11C1AAE5AAA000F50BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		759EA11E1AAE5AAA000F50BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		759EA11F1AAE5AAA000F50BA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		759EA1271AAE5AAA000F50BA /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = /Users/Shared/Firebase/Frameworks/Firebase.framework; sourceTree = "<absolute>"; };
 		759EA1291AAE5AAA000F50BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		759EA12C1AAE5AAA000F50BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		759EA1321AAE5AAA000F50BA /* FirebaseSampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseSampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +82,7 @@
 				759EA1161AAE5AAA000F50BA /* Security.framework in Frameworks */,
 				759EA1181AAE5AAA000F50BA /* SystemConfiguration.framework in Frameworks */,
 				759EA1141AAE5AAA000F50BA /* CFNetwork.framework in Frameworks */,
-				759EA1281AAE5AAA000F50BA /* Firebase.framework in Frameworks */,
+				7517BA731AAE927800C70293 /* Firebase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +99,10 @@
 		7511FE981AAE63D4001987B8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7517BA7F1AAE973600C70293 /* FDDrawView.h */,
+				7517BA801AAE973600C70293 /* FDDrawView.m */,
+				7517BA821AAE976A00C70293 /* FDPath.h */,
+				7517BA831AAE976A00C70293 /* FDPath.m */,
 				7511FE991AAE63FC001987B8 /* MainViewControllerHeaderView.h */,
 				7511FE9A1AAE63FC001987B8 /* MainViewControllerHeaderView.m */,
 				7511FEAC1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.h */,
@@ -144,7 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				759EA1131AAE5AAA000F50BA /* CFNetwork.framework */,
-				759EA1271AAE5AAA000F50BA /* Firebase.framework */,
+				7517BA721AAE927800C70293 /* Firebase.framework */,
 				759EA1151AAE5AAA000F50BA /* Security.framework */,
 				759EA1171AAE5AAA000F50BA /* SystemConfiguration.framework */,
 			);
@@ -198,6 +214,10 @@
 		759EA1421AAE5AEC000F50BA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7517BA761AAE93AF00C70293 /* BaseViewController.h */,
+				7517BA771AAE93AF00C70293 /* BaseViewController.m */,
+				7517BA791AAE96BE00C70293 /* DrawingViewController.h */,
+				7517BA7A1AAE96BE00C70293 /* DrawingViewController.m */,
 				759EA1461AAE5C46000F50BA /* MainViewController.h */,
 				759EA1471AAE5C46000F50BA /* MainViewController.m */,
 			);
@@ -305,12 +325,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				7511FEA71AAE6652001987B8 /* UIView+AutoLayout.m in Sources */,
+				7517BA781AAE93AF00C70293 /* BaseViewController.m in Sources */,
 				759EA1201AAE5AAA000F50BA /* AppDelegate.m in Sources */,
 				7511FEAE1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m in Sources */,
+				7517BA841AAE976A00C70293 /* FDPath.m in Sources */,
 				7511FE9B1AAE63FC001987B8 /* MainViewControllerHeaderView.m in Sources */,
 				759EA11D1AAE5AAA000F50BA /* main.m in Sources */,
 				7511FEB21AAE74F0001987B8 /* FirebaseBusinessService.m in Sources */,
 				759EA1481AAE5C46000F50BA /* MainViewController.m in Sources */,
+				7517BA811AAE973600C70293 /* FDDrawView.m in Sources */,
+				7517BA7B1AAE96BE00C70293 /* DrawingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +459,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Shared/Firebase/Frameworks,
+					"$(PROJECT_DIR)/FirebaseSampleApp/Frameworks",
 				);
 				INFOPLIST_FILE = FirebaseSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -457,6 +482,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Shared/Firebase/Frameworks,
+					"$(PROJECT_DIR)/FirebaseSampleApp/Frameworks",
 				);
 				INFOPLIST_FILE = FirebaseSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

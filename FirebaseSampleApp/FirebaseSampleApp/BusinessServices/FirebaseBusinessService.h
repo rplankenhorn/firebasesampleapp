@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol FirebaseBusinessServiceDelegate;
+@class FDPath;
 
 @interface FirebaseBusinessService : NSObject
 
@@ -23,17 +24,19 @@
 
 - (void)startObservingButtonStates;
 - (void)stopObservingButtonStates;
-
 - (void)postButtonStateValues:(NSArray *)buttonStateValues;
+
+- (void)startObservingDrawing;
+- (void)stopObservingDrawing;
+- (void)postPath:(FDPath *)path;
 
 @end
 
 @protocol FirebaseBusinessServiceDelegate <NSObject>
 
-@required
-- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService buttonStateValues:(NSArray *)buttonStateValues;
-
 @optional
 - (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService connectionDidChange:(BOOL)connectionActive;
+- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService buttonStateValues:(NSArray *)buttonStateValues;
+- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService pathValue:(FDPath *)pathValue;
 
 @end

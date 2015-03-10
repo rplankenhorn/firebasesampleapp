@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Robbie Plankenhorn. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface MainViewController : UIViewController;
+@interface MainViewController : BaseViewController
 
 @end
