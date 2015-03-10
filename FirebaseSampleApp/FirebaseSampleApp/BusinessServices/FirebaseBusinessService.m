@@ -48,7 +48,9 @@
     
     self.connectionHandle = [self.firebaseConnectionReference observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         weakSelf.connected = [snapshot.value boolValue];
-        [weakSelf.delegate firebaseBusinessService:weakSelf connectionDidChange:weakSelf.connected];
+        if ([weakSelf.delegate respondsToSelector:@selector(firebaseBusinessService:connectionDidChange:)]) {
+            [weakSelf.delegate firebaseBusinessService:weakSelf connectionDidChange:weakSelf.connected];
+        }
     }];
 }
 
@@ -59,7 +61,6 @@
 - (void)startObservingButtonStates {
     __weak FirebaseBusinessService *weakSelf = self;
     
-    // Attach a block to read the data at our posts reference
     self.buttonStateObservingHandle = [self.firebaseButtonStateObservingReference observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         NSArray *buttonValues = (NSArray *)snapshot.value;
         [weakSelf.delegate firebaseBusinessService:weakSelf buttonStateValues:buttonValues];
