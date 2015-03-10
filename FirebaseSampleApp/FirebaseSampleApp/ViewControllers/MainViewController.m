@@ -9,19 +9,21 @@
 #import "MainViewController.h"
 #import "MainViewControllerHeaderView.h"
 #import "SimpleButtonCollectionViewCell.h"
+#import "FirebaseBusinessService.h"
 
 static NSUInteger const kNumberOfButtons = 12;
 static CGFloat const kHeaderViewHeight = 50.0;
 
 static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"SimpleButtonCollectionViewCellReuseIdentifier";
 
-@interface MainViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface MainViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, FirebaseBusinessServiceDelegate>
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UICollectionViewLayout *layout;
 @property (strong, nonatomic) MainViewControllerHeaderView *headerView;
+
 @property (strong, nonatomic) NSMutableArray *activeButtons;
-@property (strong, nonatomic) UIColor *activeColor;
-@property (strong, nonatomic) UIColor *inactiveColor;
+@property (strong, nonatomic) FirebaseBusinessService *firebaseBusinessService;
+
 @end
 
 @implementation MainViewController
@@ -66,6 +68,14 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     return _activeButtons;
 }
 
+- (FirebaseBusinessService *)firebaseBusinessService {
+    if (!_firebaseBusinessService) {
+        _firebaseBusinessService = [[FirebaseBusinessService alloc] initWithFirebaseUrl:@"https://plank-firebase-sample.firebaseio.com"];
+        _firebaseBusinessService.delegate = self;
+    }
+    return _firebaseBusinessService;
+}
+
 #pragma mark - Lifecycle
 
 - (void)loadView {
@@ -93,6 +103,8 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     [super viewDidLoad];
     
     [self.collectionView registerClass:[SimpleButtonCollectionViewCell class] forCellWithReuseIdentifier:kSimpleButtonCollectionViewCellReuseIdentifier];
+    
+    [self.firebaseBusinessService startMonitoringConnection];
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -135,6 +147,12 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(100, 50);
+}
+
+#pragma mark - FirebaseBusinessServiceDelegate
+
+- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService connectionDidChange:(BOOL)connectionActive {
+    self.headerView.connectionActive = connectionActive;
 }
 
 @end
