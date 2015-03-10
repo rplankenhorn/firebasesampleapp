@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 #import "FirebaseBusinessService.h"
 
-static CGFloat const kTopPadding = 80.0;
+static CGFloat const kTopPadding = 40.0;
 static CGFloat const kPadding = 10.0;
 
 #define HEADER_VIEW_HEIGHT (IS_IPHONE ? 50.0 : 100.0)
@@ -74,11 +74,6 @@ static CGFloat const kPadding = 10.0;
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[headerView]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[detailView]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-topPadding-[headerView(==headerViewHeight)]-padding-[detailView]-padding-|" options:0 metrics:metrics views:viewsDictionary]];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

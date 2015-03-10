@@ -17,7 +17,7 @@ static CGSize const kCellSize = {100.0, 50.0};
 
 static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"SimpleButtonCollectionViewCellReuseIdentifier";
 
-@interface MainViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface MainViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, DrawingViewControllerDelegate>
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UICollectionViewLayout *layout;
 @property (strong, nonatomic) NSMutableArray *activeButtons;
@@ -78,9 +78,9 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     [self.firebaseBusinessService startObservingButtonStates];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     [self.firebaseBusinessService stopObservingButtonStates];
-    [super viewDidAppear:animated];
+    [super viewDidDisappear:animated];
 }
 
 #pragma mark - <UICollectionViewDataSource>
@@ -147,7 +147,15 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
 
 - (void)headerButtonPressedWithMainViewControllerHeaderView:(MainViewControllerHeaderView *)headerView {
     DrawingViewController *drawingViewController = [[DrawingViewController alloc] init];
-    [self.navigationController pushViewController:drawingViewController animated:YES];
+    drawingViewController.delegate = self;
+    drawingViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:drawingViewController animated:YES completion:nil];
+}
+
+#pragma mark - DrawingViewControllerDelegate
+
+- (void)shouldDismissDrawingViewController:(DrawingViewController *)drawingViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

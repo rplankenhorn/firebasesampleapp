@@ -8,6 +8,16 @@
 
 #import "BaseViewController.h"
 
+@protocol DrawingViewControllerDelegate;
+
 @interface DrawingViewController : BaseViewController
+
+@property (weak, nonatomic) id<DrawingViewControllerDelegate> delegate;
+
+@end
+
+@protocol DrawingViewControllerDelegate <NSObject>
+
+- (void)shouldDismissDrawingViewController:(DrawingViewController *)drawingViewController;
 
 @end
