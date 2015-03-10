@@ -1,5 +1,5 @@
 //
-//  MainCollectionViewController.h
+//  DrawingViewController.h
 //  FirebaseSampleApp
 //
 //  Created by Robbie Plankenhorn on 3/9/15.
@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface MainViewController : BaseViewController
+@interface DrawingViewController : BaseViewController
 
 @end
