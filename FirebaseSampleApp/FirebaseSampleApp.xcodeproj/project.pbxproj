@@ -11,12 +11,12 @@
 		7511FEA71AAE6652001987B8 /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FEA61AAE6652001987B8 /* UIView+AutoLayout.m */; };
 		7511FEAE1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FEAD1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m */; };
 		7511FEB21AAE74F0001987B8 /* FirebaseBusinessService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FEB11AAE74F0001987B8 /* FirebaseBusinessService.m */; };
+		7517BA731AAE927800C70293 /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7517BA721AAE927800C70293 /* Firebase.framework */; };
 		759EA1141AAE5AAA000F50BA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1131AAE5AAA000F50BA /* CFNetwork.framework */; };
 		759EA1161AAE5AAA000F50BA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1151AAE5AAA000F50BA /* Security.framework */; };
 		759EA1181AAE5AAA000F50BA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1171AAE5AAA000F50BA /* SystemConfiguration.framework */; };
 		759EA11D1AAE5AAA000F50BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 759EA11C1AAE5AAA000F50BA /* main.m */; };
 		759EA1201AAE5AAA000F50BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 759EA11F1AAE5AAA000F50BA /* AppDelegate.m */; };
-		759EA1281AAE5AAA000F50BA /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1271AAE5AAA000F50BA /* Firebase.framework */; };
 		759EA12A1AAE5AAA000F50BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 759EA1291AAE5AAA000F50BA /* Images.xcassets */; };
 		759EA12D1AAE5AAA000F50BA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 759EA12B1AAE5AAA000F50BA /* LaunchScreen.xib */; };
 		759EA1391AAE5AAA000F50BA /* FirebaseSampleAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 759EA1381AAE5AAA000F50BA /* FirebaseSampleAppTests.m */; };
@@ -44,6 +44,7 @@
 		7511FEB11AAE74F0001987B8 /* FirebaseBusinessService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseBusinessService.m; sourceTree = "<group>"; };
 		7517BA6F1AAE8C7500C70293 /* FirebaseSampleApp.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseSampleApp.pch; sourceTree = "<group>"; };
 		7517BA711AAE8DAB00C70293 /* FirebaseSampleAppMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseSampleAppMacros.h; sourceTree = "<group>"; };
+		7517BA721AAE927800C70293 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = FirebaseSampleApp/Frameworks/Firebase.framework; sourceTree = "<group>"; };
 		759EA1101AAE5AAA000F50BA /* FirebaseSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		759EA1131AAE5AAA000F50BA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		759EA1151AAE5AAA000F50BA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -52,7 +53,6 @@
 		759EA11C1AAE5AAA000F50BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		759EA11E1AAE5AAA000F50BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		759EA11F1AAE5AAA000F50BA /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		759EA1271AAE5AAA000F50BA /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = /Users/Shared/Firebase/Frameworks/Firebase.framework; sourceTree = "<absolute>"; };
 		759EA1291AAE5AAA000F50BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		759EA12C1AAE5AAA000F50BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		759EA1321AAE5AAA000F50BA /* FirebaseSampleAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FirebaseSampleAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +70,7 @@
 				759EA1161AAE5AAA000F50BA /* Security.framework in Frameworks */,
 				759EA1181AAE5AAA000F50BA /* SystemConfiguration.framework in Frameworks */,
 				759EA1141AAE5AAA000F50BA /* CFNetwork.framework in Frameworks */,
-				759EA1281AAE5AAA000F50BA /* Firebase.framework in Frameworks */,
+				7517BA731AAE927800C70293 /* Firebase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				759EA1131AAE5AAA000F50BA /* CFNetwork.framework */,
-				759EA1271AAE5AAA000F50BA /* Firebase.framework */,
+				7517BA721AAE927800C70293 /* Firebase.framework */,
 				759EA1151AAE5AAA000F50BA /* Security.framework */,
 				759EA1171AAE5AAA000F50BA /* SystemConfiguration.framework */,
 			);
@@ -435,6 +435,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Shared/Firebase/Frameworks,
+					"$(PROJECT_DIR)/FirebaseSampleApp/Frameworks",
 				);
 				INFOPLIST_FILE = FirebaseSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -457,6 +458,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/Shared/Firebase/Frameworks,
+					"$(PROJECT_DIR)/FirebaseSampleApp/Frameworks",
 				);
 				INFOPLIST_FILE = FirebaseSampleApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
