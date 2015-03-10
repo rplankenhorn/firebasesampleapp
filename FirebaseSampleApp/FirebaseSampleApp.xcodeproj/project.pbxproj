@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7511FE9B1AAE63FC001987B8 /* MainViewControllerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FE9A1AAE63FC001987B8 /* MainViewControllerHeaderView.m */; };
 		7511FEA71AAE6652001987B8 /* UIView+AutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FEA61AAE6652001987B8 /* UIView+AutoLayout.m */; };
+		7511FEAE1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7511FEAD1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m */; };
 		759EA1141AAE5AAA000F50BA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1131AAE5AAA000F50BA /* CFNetwork.framework */; };
 		759EA1161AAE5AAA000F50BA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1151AAE5AAA000F50BA /* Security.framework */; };
 		759EA1181AAE5AAA000F50BA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 759EA1171AAE5AAA000F50BA /* SystemConfiguration.framework */; };
@@ -36,6 +37,8 @@
 		7511FE9A1AAE63FC001987B8 /* MainViewControllerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewControllerHeaderView.m; sourceTree = "<group>"; };
 		7511FEA51AAE6652001987B8 /* UIView+AutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AutoLayout.h"; sourceTree = "<group>"; };
 		7511FEA61AAE6652001987B8 /* UIView+AutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AutoLayout.m"; sourceTree = "<group>"; };
+		7511FEAC1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleButtonCollectionViewCell.h; sourceTree = "<group>"; };
+		7511FEAD1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleButtonCollectionViewCell.m; sourceTree = "<group>"; };
 		759EA1101AAE5AAA000F50BA /* FirebaseSampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FirebaseSampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		759EA1131AAE5AAA000F50BA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		759EA1151AAE5AAA000F50BA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -81,6 +84,8 @@
 			children = (
 				7511FE991AAE63FC001987B8 /* MainViewControllerHeaderView.h */,
 				7511FE9A1AAE63FC001987B8 /* MainViewControllerHeaderView.m */,
+				7511FEAC1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.h */,
+				7511FEAD1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 			files = (
 				7511FEA71AAE6652001987B8 /* UIView+AutoLayout.m in Sources */,
 				759EA1201AAE5AAA000F50BA /* AppDelegate.m in Sources */,
+				7511FEAE1AAE72E6001987B8 /* SimpleButtonCollectionViewCell.m in Sources */,
 				7511FE9B1AAE63FC001987B8 /* MainViewControllerHeaderView.m in Sources */,
 				759EA11D1AAE5AAA000F50BA /* main.m in Sources */,
 				759EA1481AAE5C46000F50BA /* MainViewController.m in Sources */,

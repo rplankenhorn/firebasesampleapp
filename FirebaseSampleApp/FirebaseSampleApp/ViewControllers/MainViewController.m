@@ -8,13 +8,14 @@
 
 #import "MainViewController.h"
 #import "MainViewControllerHeaderView.h"
+#import "SimpleButtonCollectionViewCell.h"
 
 static NSUInteger const kNumberOfButtons = 12;
 static CGFloat const kHeaderViewHeight = 50.0;
 
 static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"SimpleButtonCollectionViewCellReuseIdentifier";
 
-@interface MainViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MainViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UICollectionViewLayout *layout;
 @property (strong, nonatomic) MainViewControllerHeaderView *headerView;
@@ -65,28 +66,17 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     return _activeButtons;
 }
 
-- (UIColor *)activeColor {
-    if (!_activeColor) {
-        _activeColor = [UIColor colorWithRed:129.0/0xff green:188.0/0xff blue:103.0/0xff alpha:1.0];
-    }
-    return _activeColor;
-}
-
-- (UIColor *)inactiveColor {
-    if (!_inactiveColor) {
-        _inactiveColor = [UIColor colorWithRed:181.0/0xff green:99.0/0xff blue:143.0/0xff alpha:1.0];
-    }
-    return _inactiveColor;
-}
-
 #pragma mark - Lifecycle
 
 - (void)loadView {
     self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
     
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.collectionView];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:240.0/0xff green:240.0/0xff blue:240.0/0xff alpha:1.0];
+    self.headerView.backgroundColor = self.view.backgroundColor;
+    self.collectionView.backgroundColor = self.headerView.backgroundColor;
     
     NSDictionary *viewsDictionary = @{@"headerView": self.headerView,
                                       @"collectionView": self.collectionView};
@@ -102,18 +92,10 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.collectionView.backgroundColor = [UIColor colorWithRed:240.0/0xff green:240.0/0xff blue:240.0/0xff alpha:1.0];
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kSimpleButtonCollectionViewCellReuseIdentifier];
-    
-    // Do any additional setup after loading the view.
+    [self.collectionView registerClass:[SimpleButtonCollectionViewCell class] forCellWithReuseIdentifier:kSimpleButtonCollectionViewCellReuseIdentifier];
 }
 
-#pragma mark <UICollectionViewDataSource>
+#pragma mark - <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -125,20 +107,18 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kSimpleButtonCollectionViewCellReuseIdentifier forIndexPath:indexPath];
+    SimpleButtonCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kSimpleButtonCollectionViewCellReuseIdentifier forIndexPath:indexPath];
+    
+    cell.backgroundColor = self.collectionView.backgroundColor;
     
     BOOL active = [[self.activeButtons objectAtIndex:indexPath.row] boolValue];
     
-    if (active) {
-        cell.contentView.backgroundColor = self.activeColor;
-    } else {
-        cell.contentView.backgroundColor = self.inactiveColor;
-    }
+    [cell setActive:active];
     
     return cell;
 }
 
-#pragma mark <UICollectionViewDelegate>
+#pragma mark - <UICollectionViewDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
@@ -151,33 +131,10 @@ static NSString * const kSimpleButtonCollectionViewCellReuseIdentifier = @"Simpl
     [collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
-}
-*/
+#pragma mark - <UICollectionViewDelegateFlowLayout>
 
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(100, 50);
 }
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
 
 @end
