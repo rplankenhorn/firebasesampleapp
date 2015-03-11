@@ -32,5 +32,7 @@
 // adds a path to display to this view
 - (void)addPath:(FDPath *)path;
 
+// removes path from view
+- (void)removePath:(FDPath *)path;
 
 @end

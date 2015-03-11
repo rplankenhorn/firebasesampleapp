@@ -18,6 +18,7 @@
 @property (assign, nonatomic) FirebaseHandle connectionHandle;
 @property (assign, nonatomic) FirebaseHandle buttonStateObservingHandle;
 @property (assign, nonatomic) FirebaseHandle drawingHandle;
+@property (assign, nonatomic) FirebaseHandle eraserHandle;
 @property (strong, nonatomic) NSMutableSet *outstandingPaths;
 @end
 
@@ -122,10 +123,24 @@
             }
         }
     }];
+    
+    self.eraserHandle = [self.firebaseDrawReference observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
+        // parse the path into our internal format
+        FDPath *path = [FDPath parse:snapshot.value];
+        if (path != nil) {
+            if ([weakSelf.delegate respondsToSelector:@selector(firebaseBusinessService:pathRemoved:)]) {
+                [weakSelf.delegate firebaseBusinessService:weakSelf pathRemoved:path];
+            }
+        } else {
+            // there was an error parsing the snapshot, log an error
+            NSLog(@"Not a valid path: %@ -> %@", snapshot.key, snapshot.value);
+        }
+    }];
 }
 
 - (void)stopObservingDrawing {
     [self.firebaseDrawReference removeObserverWithHandle:self.drawingHandle];
+    [self.firebaseDrawReference removeObserverWithHandle:self.eraserHandle];
 }
 
 - (void)postPath:(FDPath *)path {

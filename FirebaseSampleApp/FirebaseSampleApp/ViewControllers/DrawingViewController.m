@@ -115,4 +115,8 @@
     [self.firebaseBusinessService removePath:path];
 }
 
+- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService pathRemoved:(FDPath *)pathValue {
+    [self.drawView removePath:pathValue];
+}
+
 @end

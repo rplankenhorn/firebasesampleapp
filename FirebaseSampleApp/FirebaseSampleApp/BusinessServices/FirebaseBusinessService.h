@@ -39,5 +39,6 @@
 - (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService connectionDidChange:(BOOL)connectionActive;
 - (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService buttonStateValues:(NSArray *)buttonStateValues;
 - (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService pathValue:(FDPath *)pathValue;
+- (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService pathRemoved:(FDPath *)pathValue;
 
 @end
