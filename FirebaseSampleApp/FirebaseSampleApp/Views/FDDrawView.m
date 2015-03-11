@@ -42,6 +42,18 @@
     [self setNeedsDisplay];
 }
 
+- (void)removePath:(FDPath *)path
+{
+    for (FDPath *p in self.paths) {
+        if ([p.firebaseName isEqualToString:path.firebaseName]) {
+            [self.paths removeObject:p];
+            break;
+        }
+    }
+    
+    [self setNeedsDisplay];
+}
+
 - (void)drawPath:(FDPath *)path withContext:(CGContextRef)context
 {
     if (path.points.count > 1) {
