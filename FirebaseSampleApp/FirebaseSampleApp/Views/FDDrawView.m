@@ -86,31 +86,37 @@
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event
 {
-    if (self.currentPath == nil) {
-        // the user is currently not drawing a line so start a new one
-
-        // remember the touch to not mix up multitouch
+    if (self.isErasingModeEnabled) {
         self.currentTouch = [touches anyObject];
-        self.currentPath = [[FDPath alloc] initWithColor:self.drawColor];
+    } else {
+        if (self.currentPath == nil) {
+            // the user is currently not drawing a line so start a new one
 
-        // add the current point on the path
-        CGPoint touchPoint = [self.currentTouch locationInView:self];
-        [self.currentPath addPoint:touchPoint];
+            // remember the touch to not mix up multitouch
+            self.currentTouch = [touches anyObject];
+            self.currentPath = [[FDPath alloc] initWithColor:self.drawColor];
 
-        [self setNeedsDisplay];
+            // add the current point on the path
+            CGPoint touchPoint = [self.currentTouch locationInView:self];
+            [self.currentPath addPoint:touchPoint];
+
+            [self setNeedsDisplay];
+        }
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.currentPath != nil) {
-        // look if any of the touches that moved is the one currently used to draw a line
-        for (UITouch *touch in touches) {
-            if (self.currentTouch == touch) {
-                // we found the touch so update the line
-                CGPoint touchPoint = [self.currentTouch locationInView:self];
-                [self.currentPath addPoint:touchPoint];
-                [self setNeedsDisplay];
+    if (!self.isErasingModeEnabled) {
+        if (self.currentPath != nil) {
+            // look if any of the touches that moved is the one currently used to draw a line
+            for (UITouch *touch in touches) {
+                if (self.currentTouch == touch) {
+                    // we found the touch so update the line
+                    CGPoint touchPoint = [self.currentTouch locationInView:self];
+                    [self.currentPath addPoint:touchPoint];
+                    [self setNeedsDisplay];
+                }
             }
         }
     }
@@ -118,13 +124,15 @@
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.currentPath != nil) {
-        for (UITouch *touch in touches) {
-            if (self.currentTouch == touch) {
-                // the touch was cancelled reset drawing state
-                self.currentPath = nil;
-                self.currentTouch = nil;
-                [self setNeedsDisplay];
+    if (!self.isErasingModeEnabled) {
+        if (self.currentPath != nil) {
+            for (UITouch *touch in touches) {
+                if (self.currentTouch == touch) {
+                    // the touch was cancelled reset drawing state
+                    self.currentPath = nil;
+                    self.currentTouch = nil;
+                    [self setNeedsDisplay];
+                }
             }
         }
     }
@@ -132,18 +140,43 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (self.currentPath != nil) {
-        for (UITouch *touch in touches) {
-            if (self.currentTouch == touch) {
-                // the touch finished draw add the line to the current state
-                [self.paths addObject:self.currentPath];
+    if (self.isErasingModeEnabled) {
+        NSMutableArray *newPaths = [[NSMutableArray alloc] init];
+        NSMutableArray *pathsToErase = [[NSMutableArray alloc] init];
+        
+        for (UITouch *currentTouch in touches) {
+            CGPoint p = [currentTouch locationInView:self];
+            for (FDPath *path in self.paths) {
+                if ([path containsPoint:p]) {
+                    [pathsToErase addObject:path];
+                } else {
+                    [newPaths addObject:path];
+                }
+            }
+            
+            self.paths = [[NSMutableArray alloc] initWithArray:newPaths];
+            [self setNeedsDisplay];
+            
+            if (pathsToErase.count > 0) {
+                for (FDPath *path in pathsToErase) {
+                    [self.delegate drawView:self didEraseDrawingPath:path];
+                }
+            }
+        }
+    } else {
+        if (self.currentPath != nil) {
+            for (UITouch *touch in touches) {
+                if (self.currentTouch == touch) {                    
+                    // the touch finished draw add the line to the current state
+                    [self.paths addObject:self.currentPath];
 
-                // notify the delegate
-                [self.delegate drawView:self didFinishDrawingPath:self.currentPath];
+                    // notify the delegate
+                    [self.delegate drawView:self didFinishDrawingPath:self.currentPath];
 
-                // reset drawing state
-                self.currentPath = nil;
-                self.currentTouch = nil;
+                    // reset drawing state
+                    self.currentPath = nil;
+                    self.currentTouch = nil;
+                }
             }
         }
     }

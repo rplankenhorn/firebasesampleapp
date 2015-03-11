@@ -15,10 +15,13 @@
 
 // called when a user finished drawing a line/path
 - (void)drawView:(FDDrawView *)view didFinishDrawingPath:(FDPath *)path;
+- (void)drawView:(FDDrawView *)view didEraseDrawingPath:(FDPath *)path;
 
 @end
 
 @interface FDDrawView : UIView
+
+@property (nonatomic, assign, getter=isErasingModeEnabled) BOOL erasingModeEnabled;
 
 // the color that is used to draw lines
 @property (nonatomic, strong) UIColor *drawColor;

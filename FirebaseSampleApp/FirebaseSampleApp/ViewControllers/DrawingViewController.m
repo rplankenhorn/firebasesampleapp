@@ -9,13 +9,18 @@
 #import "DrawingViewController.h"
 #import "FDDrawView.h"
 #import "FirebaseBusinessService.h"
+#import "UIView+AutoLayout.h"
 
 @interface DrawingViewController () <FDDrawViewDelegate>
 @property (strong, nonatomic) FDDrawView *drawView;
+@property (strong, nonatomic) UIButton *eraserButton;
 @property (strong, nonatomic) NSMutableArray *paths;
+@property (assign, nonatomic, getter=isErasing) BOOL erasing;
 @end
 
 @implementation DrawingViewController
+
+@synthesize detailView = _detailView;
 
 #pragma mark - Property Overrides
 
@@ -33,9 +38,30 @@
     if (!_drawView) {
         _drawView = [[FDDrawView alloc] initWithFrame:CGRectZero];
         _drawView.delegate = self;
+        [_drawView addSubview:self.eraserButton];
+        
+        NSDictionary *viewsDictionary = @{@"eraserButton": self.eraserButton};
+        [_drawView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[eraserButton]-0-|" options:0 metrics:nil views:viewsDictionary]];
+        [_drawView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[eraserButton]-0-|" options:0 metrics:nil views:viewsDictionary]];
+        
+        [self.eraserButton constrainToSize:CGSizeMake(200.0, 50.0)];
+        
         _drawView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _drawView;
+}
+
+- (UIButton *)eraserButton {
+    if (!_eraserButton) {
+        _eraserButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [_eraserButton setTitle:@"Enable Eraser" forState:UIControlStateNormal];
+        [_eraserButton addTarget:self action:@selector(eraserButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [_eraserButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _eraserButton.adjustsImageWhenHighlighted = NO;
+        _eraserButton.backgroundColor = [UIColor colorWithRed:91.0/0xff green:149.0/0xff blue:214.0/0xff alpha:1.0];
+        _eraserButton.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _eraserButton;
 }
 
 - (NSMutableArray *)paths {
@@ -57,6 +83,15 @@
     [super viewDidDisappear:animated];
 }
 
+#pragma mark - Actions
+
+- (void)eraserButtonTapped:(id)sender {
+    self.erasing = !self.isErasing;
+    self.drawView.erasingModeEnabled = self.isErasing;
+    NSString *buttonText = (self.isErasing ? @"Disable Eraser" : @"Enable Eraser");
+    [self.eraserButton setTitle:buttonText forState:UIControlStateNormal];
+}
+
 #pragma mark - FirebaseBusinessServiceDelegate
 
 - (void)firebaseBusinessService:(FirebaseBusinessService *)firebaseBusinessService pathValue:(FDPath *)pathValue {
@@ -74,6 +109,10 @@
 
 - (void)drawView:(FDDrawView *)view didFinishDrawingPath:(FDPath *)path {
     [self.firebaseBusinessService postPath:path];
+}
+
+- (void)drawView:(FDDrawView *)view didEraseDrawingPath:(FDPath *)path {
+    [self.firebaseBusinessService removePath:path];
 }
 
 @end

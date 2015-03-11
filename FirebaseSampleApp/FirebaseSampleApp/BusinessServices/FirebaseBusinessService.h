@@ -29,6 +29,7 @@
 - (void)startObservingDrawing;
 - (void)stopObservingDrawing;
 - (void)postPath:(FDPath *)path;
+- (void)removePath:(FDPath *)path;
 
 @end
 

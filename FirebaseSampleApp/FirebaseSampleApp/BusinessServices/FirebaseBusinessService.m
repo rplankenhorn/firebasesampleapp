@@ -135,6 +135,8 @@
     // get the name of this path which serves as a global id
     NSString *name = pathRef.key;
     
+    path.firebaseName = name;
+    
     // remember that this path was drawn by this user so it's not drawn twice
     [self.outstandingPaths addObject:name];
     
@@ -145,6 +147,11 @@
         // The path was successfully saved and can now be removed from the outstanding paths
         [weakSelf.outstandingPaths removeObject:name];
     }];
+}
+
+- (void)removePath:(FDPath *)path {
+    Firebase *pathRef = [self.firebaseDrawReference childByAppendingPath:path.firebaseName];
+    [pathRef removeValue];
 }
 
 @end

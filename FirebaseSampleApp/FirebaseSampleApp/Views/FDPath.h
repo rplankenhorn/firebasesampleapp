@@ -16,10 +16,15 @@
 
 - (id)initWithCGPoint:(CGPoint)point;
 
+- (CGFloat)distanceFrom:(CGPoint)point;
+
 @end
 
 // a path consisting of a color and multiple way points
 @interface FDPath : NSObject
+
+// The child name of the path on the server.
+@property (nonatomic, strong) NSString *firebaseName;
 
 // the points of this path
 @property (nonatomic, strong, readonly) NSMutableArray *points;
@@ -38,5 +43,7 @@
 
 // add a point to this path
 - (void)addPoint:(CGPoint)point;
+
+- (BOOL)containsPoint:(CGPoint)point;
 
 @end
