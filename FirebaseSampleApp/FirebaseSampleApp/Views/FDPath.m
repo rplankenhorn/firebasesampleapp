@@ -8,6 +8,8 @@
 
 #import "FDPath.h"
 
+static CGFloat const kEraserToleranceDistance = 20.0;
+
 @interface FDPoint ()
 
 @property (nonatomic, readwrite) CGFloat x;
@@ -25,6 +27,12 @@
         self->_y = point.y;
     }
     return self;
+}
+
+- (CGFloat)distanceFrom:(CGPoint)point {
+    CGFloat xDist = self->_x - point.x;
+    CGFloat yDist = self->_y - point.y;
+    return sqrt(pow(xDist, 2.0) + pow(yDist, 2.0));
 }
 
 + (FDPoint *)parse:(id)obj
@@ -86,6 +94,17 @@
     [self.points addObject:[[FDPoint alloc] initWithCGPoint:point]];
 }
 
+- (BOOL)containsPoint:(CGPoint)point {
+    for (FDPoint *p in self.points) {
+        CGFloat distance = [p distanceFrom:point];
+        if (distance < kEraserToleranceDistance) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 + (FDPath *)parse:(NSDictionary *)dictionary
 {
     // parse a FDPath from a JSON representation
@@ -115,13 +134,19 @@
             NSLog(@"Not a valid point: %@", obj);
         }
     }
-    return [[FDPath alloc] initWithPoints:points color:color];
+    
+    FDPath *path = [[FDPath alloc] initWithPoints:points color:color];
+    path.firebaseName = dictionary[@"name"];
+    
+    return path;
 }
 
 - (NSDictionary *)serialize
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
 
+    dictionary[@"name"] = self.firebaseName;
+    
     // convert the color into it's JSON representation
     dictionary[@"color"] = [FDPath serializeColor:self.color];
 

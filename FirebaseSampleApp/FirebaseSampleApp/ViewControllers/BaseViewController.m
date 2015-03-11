@@ -61,6 +61,9 @@ static CGFloat const kPadding = 10.0;
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.detailView];
     
+    self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.detailView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     self.view.backgroundColor = [UIColor colorWithRed:240.0/0xff green:240.0/0xff blue:240.0/0xff alpha:1.0];
     self.headerView.backgroundColor = self.view.backgroundColor;
     self.detailView.backgroundColor = self.headerView.backgroundColor;
